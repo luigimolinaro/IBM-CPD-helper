@@ -1,2 +1,2 @@
-# ibm-cp-helper
+# ibm-CPD-helper
 Helper for setting enviroments 
