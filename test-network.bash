@@ -2,6 +2,7 @@
 
 GREEN='\033[0;32m'
 RED='\033[0;31m'
+BLUE='\033[1;34m'
 NC='\033[0m'
 
 domains_bastion=(
@@ -29,32 +30,30 @@ domains_oc=(
 )
 
 # Test dei domini sul bastion host
-echo "Testing domini sul bastion Host"
+echo -e "${BLUE}Testing domini sul bastion Hosti : ${NC}"
 for domain in "${domains_bastion[@]}"
 do
-  echo "Testing $domain..."
   if curl -s --head --fail $domain > /dev/null; then
     echo -e "[${GREEN}OK${NC}] $domain is accessible"
   else
     echo -e "[${RED}KO${NC}] $domain is not accessible"
   fi
-  echo
 done
+echo
 
 # Test dei domini su OpenShift
-echo "Testing domini su OpenShift"
+echo -e "${BLUE}Testing domini su OpenShift : ${NC}"
 oc run test-pod --image=curlimages/curl --restart=Never -- /bin/sleep 10 > /dev/null 2>&1
 for domain in "${domains_oc[@]}"
 do
-  echo "Testing $domain..."
   output=$(oc exec -it test-pod -- curl -s --head --fail $domain 2>&1)
   if [ $? -eq 0 ]; then
     echo -e "[${GREEN}OK${NC}] $domain is accessible"
   else
     echo -e "[${RED}KO${NC}] $domain is not accessible"
   fi
-  echo
 done
+echo
 
 # Pulizia del pod di test
 oc delete pod test-pod > /dev/null 2>&1
