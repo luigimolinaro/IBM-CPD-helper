@@ -29,11 +29,10 @@ domains_oc=(
   "subscription.rhsm.redhat.com"
 )
 
-# Test dei domini sul bastion host
+# Test domains on Bastion Host
 echo -e "${BLUE}Testing domains on Bastion Host:${NC}"
-for domain in "${domains_bastion[@]}"
-do
-  if curl --head --fail $domain > /dev/null 2>&1; then
+for domain in "${domains_bastion[@]}"; do
+  if curl --head --fail "$domain" > /dev/null 2>&1; then
     echo -e "[${GREEN}OK${NC}] $domain is accessible"
   else
     echo -e "[${RED}KO${NC}] $domain is not accessible"
@@ -41,13 +40,22 @@ do
 done
 echo
 
-# Test dei domini su OpenShift
-echo -e "${BLUE}Testing domain on OpenShift : ${NC}"
-oc run test-pod --image=curlimages/curl --restart=Never -- /bin/sleep 10 > /dev/null 2>&1
-for domain in "${domains_oc[@]}"
-do
-  output=$(oc exec -it test-pod -- curl -s --head --fail $domain 2>&1)
-  if [ $? -eq 0 ]; then
+# Test domains on OpenShift
+echo -e "${BLUE}Testing domains on OpenShift:${NC}"
+oc apply -f - <<EOF > /dev/null 2>&1
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pod
+spec:
+  containers:
+    - name: curl
+      image: curlimages/curl
+      command: ["sleep", "10"]
+EOF
+
+for domain in "${domains_oc[@]}"; do
+  if oc exec -i test-pod -- curl --head --fail "$domain" > /dev/null 2>&1; then
     echo -e "[${GREEN}OK${NC}] $domain is accessible"
   else
     echo -e "[${RED}KO${NC}] $domain is not accessible"
@@ -55,5 +63,6 @@ do
 done
 echo
 
-# Pulizia del pod di test
-#oc delete pod test-pod > /dev/null 2>&1
+# Clean up test pod
+oc delete pod test-pod > /dev/null 2>&1
+
