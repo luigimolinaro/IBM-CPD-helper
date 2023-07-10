@@ -30,7 +30,7 @@ domains_oc=(
 )
 
 # Test dei domini sul bastion host
-echo -e "${BLUE}Testing domini sul bastion Hosti : ${NC}"
+echo -e "${BLUE}Testing domains on Bastion Host : ${NC}"
 for domain in "${domains_bastion[@]}"
 do
   if curl -s --head --fail $domain > /dev/null; then
@@ -42,7 +42,7 @@ done
 echo
 
 # Test dei domini su OpenShift
-echo -e "${BLUE}Testing domini su OpenShift : ${NC}"
+echo -e "${BLUE}Testing domain on OpenShift : ${NC}"
 oc run test-pod --image=curlimages/curl --restart=Never -- /bin/sleep 10 > /dev/null 2>&1
 for domain in "${domains_oc[@]}"
 do
