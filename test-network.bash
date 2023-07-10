@@ -43,19 +43,19 @@ done
 
 # Test dei domini su OpenShift
 echo "Testing domini su OpenShift"
-image="curlimages/curl"
-oc run test-pod --image=$image --restart=Never -- /bin/sh -c '
-for domain in "${domains_oc[@]}"; do
+oc run test-pod --image=curlimages/curl --restart=Never -- /bin/sleep 10 > /dev/null 2>&1
+for domain in "${domains_oc[@]}"
+do
   echo "Testing $domain..."
-  if curl -s --head --fail $domain > /dev/null; then
+  output=$(oc exec -it test-pod -- curl -s --head --fail $domain 2>&1)
+  if [ $? -eq 0 ]; then
     echo -e "[${GREEN}OK${NC}] $domain is accessible"
   else
     echo -e "[${RED}KO${NC}] $domain is not accessible"
   fi
   echo
 done
-'
 
 # Pulizia del pod di test
-oc delete pod test-pod
+oc delete pod test-pod > /dev/null 2>&1
 
