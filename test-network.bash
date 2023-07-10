@@ -30,10 +30,10 @@ domains_oc=(
 )
 
 # Test dei domini sul bastion host
-echo -e "${BLUE}Testing domains on Bastion Host : ${NC}"
+echo -e "${BLUE}Testing domains on Bastion Host:${NC}"
 for domain in "${domains_bastion[@]}"
 do
-  if curl -s --head --fail $domain > /dev/null; then
+  if curl --head --fail $domain > /dev/null 2>&1; then
     echo -e "[${GREEN}OK${NC}] $domain is accessible"
   else
     echo -e "[${RED}KO${NC}] $domain is not accessible"
@@ -56,5 +56,4 @@ done
 echo
 
 # Pulizia del pod di test
-oc delete pod test-pod > /dev/null 2>&1
-
+#oc delete pod test-pod > /dev/null 2>&1
