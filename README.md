@@ -9,4 +9,4 @@ Set Env :
  
 Test Network :
 
-![image](https://github.com/luigimolinaro/ibm-CPD-helper/assets/1215835/b9db5b3d-080c-4a64-ae43-ad0a19a249cf)
+![image](https://github.com/luigimolinaro/ibm-CPD-helper/assets/1215835/eda8e1a5-50d9-4b7d-a11d-55dc92eb03a9)
