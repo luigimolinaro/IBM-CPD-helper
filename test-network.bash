@@ -24,6 +24,10 @@ domains_bastion=(
 domains_oc=(
   "github.com"
   "gcr.io"
+  "icr.io" #IBM Entitled Registry and IBM Cloud Paks foundational services catalog source 
+  "cp.icr.io" #IBM Entitled Registry and IBM Cloud Paks foundational 
+  "registry.redhat.io" #Provides core container images    
+  "gcr.io"
   "quay.io"
   "objects.githubusercontent.com"
   "mirror.openshift.com"
