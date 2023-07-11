@@ -4,6 +4,8 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 BLUE='\033[1;34m'
 NC='\033[0m'
+port=443
+pod_name=test-pod
 
 domains_bastion=(
   "registry.access.redhat.com"
@@ -32,7 +34,7 @@ domains_oc=(
 # Test domains on Bastion Host
 echo -e "${BLUE}Testing domains on Bastion Host:${NC}"
 for domain in "${domains_bastion[@]}"; do
-  if curl --head --fail "$domain" > /dev/null 2>&1; then
+  if nc -z -v -w5 "$domain" $port > /dev/null 2>&1; then
     echo -e "[${GREEN}OK${NC}] $domain is accessible"
   else
     echo -e "[${RED}KO${NC}] $domain is not accessible"
@@ -42,27 +44,45 @@ echo
 
 # Test domains on OpenShift
 echo -e "${BLUE}Testing domains on OpenShift:${NC}"
+
+# Create the test-pod
 oc apply -f - <<EOF > /dev/null 2>&1
 apiVersion: v1
 kind: Pod
 metadata:
-  name: test-pod
+  name: $pod_name
 spec:
   containers:
-    - name: curl
-      image: curlimages/curl
-      command: ["sleep", "10"]
+    - name: nc
+      image: alpine
+      command: ["sleep", "100"]
 EOF
 
+# Wait for the test-pod to be ready
+while true; do
+  pod_status=$(oc get pod $pod_name -o jsonpath='{.status.phase}')
+  if [[ "$pod_status" == "Running" ]]; then
+    echo "The $pod_name is running and ready"
+    break
+  elif [[ "$pod_status" == "Pending" ]]; then
+    echo "Waiting for the $pod_name to be ready..."
+    sleep 5
+  else
+    echo "The test-pod failed to start or is in an error state, please check"
+    exit 1
+  fi
+done
+
+# Perform port check for each domain
 for domain in "${domains_oc[@]}"; do
-  if oc exec -i test-pod -- curl --head --fail "$domain" > /dev/null 2>&1; then
+  if oc exec -i $pod_name -- nc -z -v -w5 "$domain" "$port" 2>&1 | grep -q "open"; then
     echo -e "[${GREEN}OK${NC}] $domain is accessible"
   else
+    oc exec -i $pod_name -- nc -z -v -w5 "$domain" "$port"
     echo -e "[${RED}KO${NC}] $domain is not accessible"
   fi
 done
-echo
 
 # Clean up test pod
-oc delete pod test-pod > /dev/null 2>&1
+oc delete pod $pod_name > /dev/null 2>&1
 
