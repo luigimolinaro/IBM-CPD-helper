@@ -120,11 +120,11 @@ Configuration updated in config.yaml
 
 Variables set:
 --------------
-STATUS DIR : /root/IBM/cpd-status
-CONFIG DIR : /root/IBM/cpd-config
-ENTITLEMENT KEY : <new-entitlement-key>
-CLUSTER ID : <your-cluster-id>
-VERSION OF OC :
+STATUS DIR : /root/IBM/PROJECT1/cpd-status
+CONFIG DIR : /root/IBM/PROJECT1/cpd-config
+ENTITLEMENT KEY : aaaa-aaaa-aaaa-aaaa-aaaa-aaaa-aaaa
+CLUSTER ID : aaaa-aaaa-aaaa
+VERSION OF OC : 4.14
 Client Version: 4.7.0-202103101024.p0
 ```
 
