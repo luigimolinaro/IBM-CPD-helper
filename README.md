@@ -25,10 +25,10 @@ It is recommended to adopt the following directory structure for easier maintena
 ```
 .
 ├── cpd-config/
-│   └── ...           # Configuration files
+│   └── ...               # Configuration files
 ├── cpd-status/
-│   └── ...           # Directory for status-related information
-└── setenv.bash       # Script for setting environment variables
+│   └── ...               # Directory for status-related information
+└── **setenv.bash**       # Script for setting environment variables
 ```
 
 This structure allows for better organization and simplifies tasks such as adding cartridges or performing upgrades.
