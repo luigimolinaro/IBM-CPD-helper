@@ -15,9 +15,8 @@ This is a simple bash script designed to help automate the setup and configurati
 
 ## Prerequisites
 
-- OpenShift CLI (`oc`) must be installed and configured on your system.
-- Ensure that you have admin access to the OpenShift cluster.
-- The script requires bash shell.
+- You are familiar with "https://ibm.github.io/cloud-pak-deployer/"
+- You have already setup configuration file and folder in your installation path : https://ibm.github.io/cloud-pak-deployer/10-use-deployer/3-run/existing-openshift/#deployer-configuration-and-status-directories
 
 ## Directory Structure
 
