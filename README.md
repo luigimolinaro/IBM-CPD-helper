@@ -15,8 +15,8 @@ This is a simple bash script designed to help automate the setup and configurati
 
 ## Prerequisites
 
-- You are familiar with "https://ibm.github.io/cloud-pak-deployer/"
-- You have already setup configuration file and folder in your installation path : https://ibm.github.io/cloud-pak-deployer/10-use-deployer/3-run/existing-openshift/#deployer-configuration-and-status-directories
+- Familiarity with [IBM Cloud Pak Deployer](https://ibm.github.io/cloud-pak-deployer/)
+- A configuration file and folder should be set up in your installation path. Refer to the [Deployer Configuration and Status Directories](https://ibm.github.io/cloud-pak-deployer/10-use-deployer/3-run/existing-openshift/#deployer-configuration-and-status-directories) chapter.
 
 ## Directory Structure
 
@@ -42,7 +42,10 @@ This structure allows for better organization and simplifies tasks such as addin
     cd cloud-pak-deployer-helper
     ```
 
-2. **Run the Script:**
+2. **Move setenv.bash into your Project Directory:**  
+   Follow the [Directory Structure chapter](#directory-structure) for proper organization.
+
+3. **Run the Script:**
 
     Make the script executable:
 
@@ -56,7 +59,7 @@ This structure allows for better organization and simplifies tasks such as addin
     ./setenv.bash
     ```
 
-3. **First-time Setup:**
+4. **First-time Setup:**
 
     - If the configuration file (`config.yaml`) does not exist, the script will prompt you to enter key variables such as:
       - Entitlement Key
