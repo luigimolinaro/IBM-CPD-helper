@@ -10,7 +10,6 @@ This is a simple bash script designed to help automate the setup and configurati
 - **Interactive Configuration**: The script prompts the user for environment variables like the Entitlement Key, directory paths, and OC login credentials.
 - **YAML Configuration File**: Saves and loads configurations from a YAML file.
 - **Modify Configuration**: Allows users to modify specific configuration variables.
-- **Cluster Information**: Automatically retrieves and displays cluster-related information, such as the OpenShift cluster ID and version.
 
 ## Prerequisites
 
