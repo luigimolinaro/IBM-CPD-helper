@@ -28,7 +28,7 @@ It is recommended to adopt the following directory structure for easier maintena
 │   └── ...               # Configuration files
 ├── cpd-status/
 │   └── ...               # Directory for status-related information
-└── **setenv.bash**       # Script for setting environment variables
+└── setenv.bash           # This Script :)
 ```
 
 This structure allows for better organization and simplifies tasks such as adding cartridges or performing upgrades.
