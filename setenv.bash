@@ -1,8 +1,9 @@
 #!/bin/bash
 #Author : Luigi Molinaro - luigi.molinaro@ibm.com
 
+#colors :)
 BLU='\033[0;34m'
-RED='\e[0;31m'
+RED='\033[0;31m'  # Corrected the escape sequence
 NC='\033[0m'
 
 CONFIG_FILE="./config.yaml"  # YAML Configuration File
@@ -14,7 +15,7 @@ logo_ibm() {
     echo -e "  | ||  _ \| |\/| |"
     echo -e "  | || |_) | |  | |"
     echo -e " |___|____/|_|  |_|"
-    echo -e "       Cloud Pak Deplyer Helper"
+    echo -e "       Cloud Pak Deployer Helper"
     echo -e ${NC}
 }
 
