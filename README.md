@@ -2,8 +2,7 @@
 
 This is a simple bash script designed to help automate the setup and configuration of IBM Cloud Pak Deployer (https://github.com/IBM/cloud-pak-deployer). The script helps users configure key environment variables, manage them in a YAML configuration file, and perform modifications as needed. It also provides information about the OpenShift cluster and Cloud Pak environment setup.
 
-![image](https://github.com/user-attachments/assets/24669ac1-cb24-4885-a9dc-0c92c740b1c0)
-
+![image](https://github.com/user-attachments/assets/9cc7d2cf-1673-4b8c-8c59-ec0b22c7d6e9)
 
 ## Features
 
