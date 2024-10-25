@@ -53,7 +53,7 @@ This structure allows for better organization and simplifies tasks such as addin
     Execute the script:
 
     ```bash
-    ./setenv.bash
+    source setenv.bash
     ```
 
 4. **First-time Setup:**
