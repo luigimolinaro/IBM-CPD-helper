@@ -22,8 +22,8 @@ logo_ibm() {
 # Function to prompt the user for input and save variables in YAML
 save_config() {
     read -p "Enter the Entitlement Key: " ENTITLEMENT_KEY
-    read -p "Enter the path for the status directory: " STATUS_DIR_PATH
-    read -p "Enter the path for the config directory: " CONFIG_DIR_PATH
+    read -p "Enter the path for the status directory: (ex: /opt/IBM/project/cpd-status" STATUS_DIR_PATH
+    read -p "Enter the path for the config directory: (ex: /opt/IBM/project/cpd-config" CONFIG_DIR_PATH
     read -p "Enter the OC login: " OC_LOGIN
 
     # Save the variables in the YAML configuration file
@@ -115,8 +115,8 @@ main() {
     CLUSTER_ID="$(oc get clusterversion -o jsonpath='{.items[].spec.clusterID}{"\n"}')"
     echo "Variables set:"
     echo -e "--------------"
-    echo -e "${RED}STATUS DIR : ${NC} $STATUS_DIR"
-    echo -e "${RED}CONFIG DIR : ${NC} $CONFIG_DIR"
+    echo -e "${RED}STATUS DIR : ${NC} $STATUS_DIR_PATH"
+    echo -e "${RED}CONFIG DIR : ${NC} $CONFIG_DIR_PATH"
     echo -e "${RED}ENTITLEMENT KEY : ${NC} $CP_ENTITLEMENT_KEY"
     echo -e "${RED}CLUSTER ID : (env id) ${NC} $CLUSTER_ID"
     echo -e "${RED}VERSION OF OC :\n${NC} $(oc version)"
