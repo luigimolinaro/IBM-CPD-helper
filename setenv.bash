@@ -47,7 +47,7 @@ EOL
     echo "Configuration saved in $CONFIG_FILE"
 }
 
-# Function to load variables from the YAML file without using yq
+# Function to load variables from the YAML
 load_config() {
     if [ -f "$CONFIG_FILE" ]; then
         ENTITLEMENT_KEY=$(grep 'entitlement_key' "$CONFIG_FILE" | cut -d '"' -f2)
