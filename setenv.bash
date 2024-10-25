@@ -3,7 +3,7 @@
 
 # Colors
 BLU='\033[0;34m'
-RED='\033[0;31m'  # Corrected the escape sequence
+RED='\033[0;31m' 
 NC='\033[0m'
 
 CONFIG_FILE="./config.yaml"  # YAML Configuration File
