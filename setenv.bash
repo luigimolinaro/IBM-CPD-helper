@@ -40,15 +40,15 @@ check_config_file() {
 save_config() {
     echo "Enter the Entitlement Key: "
     read ENTITLEMENT_KEY
-    echo "Enter the path for the status directory (e.g., /opt/IBM/project/cpd-status): "
+    echo "Enter the path for the status directory (e.g., /opt/IBM/[PROJECT-NAME]/cpd-status): "
     read STATUS_DIR_PATH
-    echo "Enter the path for the config directory (e.g., /opt/IBM/project/cpd-config): "
+    echo "Enter the path for the config directory (e.g., /opt/IBM/[PROJECT-NAME]/cpd-config): "
     read CONFIG_DIR_PATH
     echo "Enter the OC login: "
     read OC_LOGIN
 
     # Save the variables in the YAML configuration file
-    cat > "$CONFIG_FILE" <<EOL
+    cat > "${SCRIPT_DIR}/$CONFIG_FILE" <<EOL
 entitlement_key: "$ENTITLEMENT_KEY"
 status_dir_path: "$STATUS_DIR_PATH"
 config_dir_path: "$CONFIG_DIR_PATH"
