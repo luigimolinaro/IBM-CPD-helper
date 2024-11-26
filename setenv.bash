@@ -1,11 +1,12 @@
 #!/bin/bash
-# Author : Luigi Molinaro - luigi.molinaro@ibm.com
 
 # Colors
 BLU='\033[0;34m'
 RED='\033[0;31m' 
 NC='\033[0m'
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CONFIG_PATH="${SCRIPT_DIR}/config.yml"
 CONFIG_FILE="./config.yaml"  # YAML Configuration File
 
 # Check if the script is sourced
@@ -24,6 +25,15 @@ logo_ibm() {
     echo -e " |___|____/|_|  |_|"
     echo -e "       Cloud Pak Deployer Helper"
     echo -e "${NC}"
+}
+
+# Function to check if the configuration file exists
+check_config_file() {
+    if [ ! -f "$CONFIG_FILE" ]; then
+        echo -e "${RED}The configuration file (${CONFIG_PATH}) does not exist.${NC}"
+        return 1
+    fi
+    return 0
 }
 
 # Function to prompt the user for input and save variables in YAML
@@ -49,22 +59,20 @@ EOL
 
 # Function to load variables from the YAML
 load_config() {
-    if [ -f "$CONFIG_FILE" ]; then
-        ENTITLEMENT_KEY=$(grep 'entitlement_key' "$CONFIG_FILE" | cut -d '"' -f2)
-        STATUS_DIR_PATH=$(grep 'status_dir_path' "$CONFIG_FILE" | cut -d '"' -f2)
-        CONFIG_DIR_PATH=$(grep 'config_dir_path' "$CONFIG_FILE" | cut -d '"' -f2)
-        OC_LOGIN=$(grep 'oc_login' "$CONFIG_FILE" | cut -d '"' -f2)
+    check_config_file || exit 1
 
-        export STATUS_DIR="$STATUS_DIR_PATH"
-        export CONFIG_DIR="$CONFIG_DIR_PATH"
-        export CP_ENTITLEMENT_KEY="$ENTITLEMENT_KEY"
-        export CPD_OC_LOGIN="$OC_LOGIN"
+    # Proceed to load the configuration
+    ENTITLEMENT_KEY=$(grep 'entitlement_key' "$CONFIG_FILE" | cut -d '"' -f2)
+    STATUS_DIR_PATH=$(grep 'status_dir_path' "$CONFIG_FILE" | cut -d '"' -f2)
+    CONFIG_DIR_PATH=$(grep 'config_dir_path' "$CONFIG_FILE" | cut -d '"' -f2)
+    OC_LOGIN=$(grep 'oc_login' "$CONFIG_FILE" | cut -d '"' -f2)
 
-        echo "Configuration loaded from $CONFIG_FILE"
-    else
-        echo -e "${RED}The configuration file does not exist.${NC}"
-        exit 1
-    fi
+    export STATUS_DIR="$STATUS_DIR_PATH"
+    export CONFIG_DIR="$CONFIG_DIR_PATH"
+    export CP_ENTITLEMENT_KEY="$ENTITLEMENT_KEY"
+    export CPD_OC_LOGIN="$OC_LOGIN"
+
+    echo "Configuration loaded from $CONFIG_FILE"
 }
 
 # Function to modify a specific variable in the YAML file without using yq
@@ -112,10 +120,10 @@ modify_config() {
 main() {
     logo_ibm
 
-    if [ -f "$CONFIG_FILE" ]; then
+    if check_config_file; then
         echo -e "${RED}The configuration file exists.${NC}"
         echo -e "${BLU}Do you want to modify the existing configuration? (y/n)${NC}"
-        read answer  # Use read without -p
+        read answer
 
         if [[ "$answer" == "y" || "$answer" == "Y" ]]; then
             modify_config
@@ -123,7 +131,7 @@ main() {
             load_config
         fi
     else
-        echo -e "${RED}The configuration file does not exist. Let's create one...${NC}"
+        echo -e "${RED}Let's create configuration File${NC}"
         save_config
     fi
 
